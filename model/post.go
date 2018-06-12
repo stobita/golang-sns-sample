@@ -11,6 +11,14 @@ type Post struct {
 	UpdatedAt time.Time `xorm:"updated" json:"updatedAt"`
 }
 
+func NewPost(title string, content string, userID int64) *Post {
+	post := new(Post)
+	post.Title = title
+	post.Content = content
+	post.UserID = userID
+	return post
+}
+
 func (p Post) Create() error {
 	_, err := engine.Insert(&p)
 	if err != nil {

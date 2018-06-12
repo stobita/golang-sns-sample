@@ -19,7 +19,7 @@ func UserUpdate() gin.HandlerFunc {
 		}
 		email := json.Email
 		userID := c.Keys["userId"].(int64)
-		err := model.User{Email: email}.Update(userID)
+		err := model.NewUser(email).Update(userID)
 		if err != nil {
 			c.JSON(400, lib.ErrorResponse(err.Error()))
 			return

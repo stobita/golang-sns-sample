@@ -55,7 +55,7 @@ func SignIn() gin.HandlerFunc {
 		}
 		email := json.Email
 		password := json.Password
-		user := model.User{Email: email}.FindOne()
+		user := model.NewUser(email).FindOne()
 		if user == nil {
 			c.JSON(400, lib.ErrorResponse("User not found"))
 			return

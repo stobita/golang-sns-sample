@@ -14,6 +14,12 @@ type User struct {
 	UpdatedAt time.Time `xorm:"updated"`
 }
 
+func NewUser(email string) *User {
+	user := new(User)
+	user.Email = email
+	return user
+}
+
 func (u User) Create() error {
 	// Insert will return affected count
 	_, err := engine.Insert(&u)

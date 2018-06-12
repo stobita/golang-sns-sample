@@ -27,7 +27,7 @@ func CreatePost() gin.HandlerFunc {
 		title := json.Title
 		content := json.Content
 		userID := c.Keys["userId"].(int64)
-		err := model.Post{Title: title, Content: content, UserID: userID}.Create()
+		err := model.NewPost(title, content, userID).Create()
 		if err != nil {
 			c.JSON(400, lib.ErrorResponse(err.Error()))
 			return
