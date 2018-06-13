@@ -15,7 +15,7 @@ func init() {
 	driver := "mysql"
 	dbUser := os.Getenv("SAMPLE_DB_USER")
 	dbPassword := os.Getenv("SAMPLE_DB_PASS")
-	dbHost := os.Getenv("SAMPLE_DB_POST")
+	dbHost := os.Getenv("SAMPLE_DB_HOST")
 	dbName := os.Getenv("SAMPLE_DB_NAME")
 	engine, err = xorm.NewEngine(driver, fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", dbUser, dbPassword, dbHost, dbName))
 	if err != nil {
