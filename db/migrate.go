@@ -43,7 +43,7 @@ func main() {
 	dbPassword := os.Getenv("SAMPLE_DB_PASS")
 	dbHost := os.Getenv("SAMPLE_DB_HOST")
 	dbName := os.Getenv("SAMPLE_DB_NAME")
-	db, err := sql.Open(driver, fmt.Sprintf("%d:%d@tcp(%d)/%d", dbUser, dbPassword, dbHost, dbName))
+	db, err := sql.Open(driver, fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", dbUser, dbPassword, dbHost, dbName))
 	if err != nil {
 		log.Fatalf("goose run: %v", err)
 	}
