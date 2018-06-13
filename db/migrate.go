@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"flag"
+	"fmt"
 	"log"
 	"os"
 
@@ -38,7 +39,11 @@ func main() {
 	if err := goose.SetDialect(driver); err != nil {
 		log.Fatal(err)
 	}
-	db, err := sql.Open(driver, "gouser:gouser@/golang_sns_sample")
+	dbUser := os.Getenv("SAMPLE_DB_USER")
+	dbPassword := os.Getenv("SAMPLE_DB_PASS")
+	dbHost := os.Getenv("SAMPLE_DB_HOST")
+	dbName := os.Getenv("SAMPLE_DB_NAME")
+	db, err := sql.Open(driver, fmt.Sprintf("%d:%d@tcp(%d)/%d", dbUser, dbPassword, dbHost, dbName))
 	if err != nil {
 		log.Fatalf("goose run: %v", err)
 	}

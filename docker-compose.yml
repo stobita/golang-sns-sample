@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  app:
+    build: ./containers/golang
+    working_dir: "/go/src/github.com/stobita/golang-sns-sample/"
+    volumes:
+      - '.:/go/src/github.com/stobita/golang-sns-sample/'
+    ports:
+      - '8085:8085'
+    command: 'go run main.go'
+    environment:
+      PORT: 8085
+      SAMPLE_DB_USER: gouser
+      SAMPLE_DB_PASS: gouser
+      SAMPLE_DB_HOST: db
+      SAMPLE_DB_NAME: golang_sns_sample
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: golang_sns_sample
+      MYSQL_USER: gouser
+      MYSQL_PASSWORD: gouser
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    expose:
+      - 3306
+volumes:
+  db-data:
+    driver: local
