@@ -1,3 +1,5 @@
+# go run db/migrate.go up
+
 version: '3'
 
 services:

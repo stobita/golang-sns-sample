@@ -17,7 +17,7 @@ func init() {
 	dbPassword := os.Getenv("SAMPLE_DB_PASS")
 	dbHost := os.Getenv("SAMPLE_DB_POST")
 	dbName := os.Getenv("SAMPLE_DB_NAME")
-	engine, err = xorm.NewEngine(driver, fmt.Sprintf("%d:%d@tcp(%d)/%d", dbUser, dbPassword, dbHost, dbName))
+	engine, err = xorm.NewEngine(driver, fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", dbUser, dbPassword, dbHost, dbName))
 	if err != nil {
 		panic("failed to connect database")
 	}
