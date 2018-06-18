@@ -39,7 +39,7 @@ func CreatePost() gin.HandlerFunc {
 func GetPosts() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		result := model.Post{}.GetAll()
-		c.JSON(200, result)
+		c.JSON(200, *result)
 	}
 }
 

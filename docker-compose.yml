@@ -10,7 +10,7 @@ services:
       - '.:/go/src/github.com/stobita/golang-sns-sample/'
     ports:
       - '8085:8085'
-    command: 'go run main.go'
+    command: 'gin --port 8085 main.go'
     environment:
       PORT: 8085
       SAMPLE_DB_USER: gouser
@@ -26,12 +26,11 @@ services:
       MYSQL_USER: gouser
       MYSQL_PASSWORD: gouser
       MYSQL_ROOT_PASSWORD: password
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     volumes:
       - db-data:/var/lib/mysql
     ports:
-      - '3306:3306'
-    expose:
-      - 3306
+      - '4306:3306'
 volumes:
   db-data:
     driver: local
