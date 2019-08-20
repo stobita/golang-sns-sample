@@ -1,25 +1,39 @@
-# migration
+# golang-sns-sample
 
-## create migration file
+Golang REST API like SNS application
+
+## Overview
+
+### Tools
+
+#### Development Environment
+* Docker
+* DockerCompose
+
+#### RDB
+* MySQL
+
+### Libraries
+
+#### http
+* https://github.com/gin-gonic/gin
+
+## Operations
+
+### start api server
 
 ```
-go run db/migrate.go create user
+make dev-up
 ```
 
-## migration up
+### create migration file
 
 ```
-go run db/migrate.go up
+make migrate-create NAME=user
 ```
 
-## migration down
+### migration up
 
 ```
-go run db/migrate.go down
-```
-
-## migration status
-
-```
-go run db/migration.go status
+make migrate up
 ```
