@@ -14,7 +14,7 @@ import (
 
 var (
 	flags  = flag.NewFlagSet("goose", flag.ExitOnError)
-	dir    = "./db/migrations"
+	dir    = "./configs/db/migrations"
 	driver = "mysql"
 )
 
