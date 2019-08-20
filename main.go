@@ -8,7 +8,13 @@ import (
 	"github.com/stobita/golang-sns-sample/middleware"
 )
 
+var defaultPort = "8080"
+
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = defaultPort
+	}
 	r := gin.Default()
 	r.Use(middleware.CORSMiddleware())
 	r.GET("/", handler.Root())
@@ -22,6 +28,5 @@ func main() {
 		authorized.GET("/user/posts", handler.GetUserPosts())
 		authorized.POST("/post/:postId/comment", handler.CreatePostComment())
 	}
-	port := os.Getenv("PORT")
 	r.Run(":" + port)
 }

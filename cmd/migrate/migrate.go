@@ -39,10 +39,10 @@ func main() {
 	if err := goose.SetDialect(driver); err != nil {
 		log.Fatal(err)
 	}
-	dbUser := os.Getenv("SAMPLE_DB_USER")
-	dbPassword := os.Getenv("SAMPLE_DB_PASS")
-	dbHost := os.Getenv("SAMPLE_DB_HOST")
-	dbName := os.Getenv("SAMPLE_DB_NAME")
+	dbUser := os.Getenv("MYSQL_USER")
+	dbPassword := os.Getenv("MYSQL_PASS")
+	dbHost := os.Getenv("MYSQL_HOST")
+	dbName := os.Getenv("MYSQL_DBNAME")
 	db, err := sql.Open(driver, fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", dbUser, dbPassword, dbHost, dbName))
 	if err != nil {
 		log.Fatalf("goose run: %v", err)
