@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  api:
+    image: golang_sns_sample_dev
+    container_name: golang_sns_sample_dev_api
+    build:
+      context: ../../
+      dockerfile: ./deployments/development/api/Dockerfile
+    ports:
+      - '8080:8080'
+    volumes:
+      - ../../:/golang_sns_sample
+    depends_on:
+      - db
+    environment:
+      MYSQL_DBNAME: golang_sns_sample
+      MYSQL_USER: golang_sns_sample
+      MYSQL_PASS: golang_sns_sample
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+  db:
+    image: mysql:5.7
+    container_name: golang_sns_sample_dev_db
+    environment:
+      MYSQL_DATABASE: golang_sns_sample
+      MYSQL_USER: golang_sns_sample
+      MYSQL_PASSWORD: golang_sns_sample
+      MYSQL_ROOT_PASSWORD: golang_sns_sample
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    volumes:
+      - golang_sns_sample_db:/var/lib/mysql
+    ports:
+      - '3306:3306'
+volumes:
+  golang_sns_sample_db:
+    driver: local
