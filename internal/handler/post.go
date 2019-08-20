@@ -4,8 +4,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stobita/golang-sns-sample/lib"
-	"github.com/stobita/golang-sns-sample/model"
+	"github.com/stobita/golang-sns-sample/internal/lib"
+	"github.com/stobita/golang-sns-sample/internal/model"
 )
 
 type PostJSON struct {

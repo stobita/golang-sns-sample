@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stobita/golang-sns-sample/lib"
+	"github.com/stobita/golang-sns-sample/internal/lib"
 )
 
 func TokenAuthMiddleware() gin.HandlerFunc {
