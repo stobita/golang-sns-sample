@@ -14,5 +14,5 @@ dev-bash:
 migrate-create:
 	docker-compose -f $(DEV_COMPOSE) exec api go run cmd/migrate/migrate create $(NAME) sql
 migrate:
-	docker-compose -f $(DEV_COMPOSE) exec api go run cmd/migrate/migrate.go up
+	docker-compose -f $(DEV_COMPOSE) exec api go run cmd/migrate/migrate.go
 
