@@ -4,8 +4,10 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/stobita/golang-sns-sample/internal/handler"
+	"github.com/stobita/golang-sns-sample/internal/controller"
+	"github.com/stobita/golang-sns-sample/internal/db"
 	"github.com/stobita/golang-sns-sample/internal/middleware"
+	"github.com/stobita/golang-sns-sample/internal/repository"
 )
 
 var defaultPort = "8080"
@@ -15,18 +17,26 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
+	db := db.NewGormConn()
+	defer db.Close()
+	repository := repository.New(db)
+	controller := controller.New(repository)
+
 	r := gin.Default()
 	r.Use(middleware.CORSMiddleware())
-	r.GET("/", handler.Root())
-	r.POST("signup", handler.SignUp())
-	r.POST("signin", handler.SignIn())
-	r.GET("/posts", handler.GetPosts())
-	authorized := r.Group("/", middleware.TokenAuthMiddleware())
+
+	v1 := r.Group("/api/v1")
 	{
-		authorized.PUT("/user", handler.UserUpdate())
-		authorized.POST("/post", handler.CreatePost())
-		authorized.GET("/user/posts", handler.GetUserPosts())
-		authorized.POST("/post/:postId/comment", handler.CreatePostComment())
+		v1.POST("signup", controller.SignUp())
+		v1.POST("signin", controller.SignIn())
+		v1.GET("/posts", controller.GetPosts())
+		authorized := v1.Group("/", middleware.TokenAuthMiddleware())
+		{
+			authorized.PUT("/user", controller.UpdateUser())
+			authorized.POST("/post", controller.CreatePost())
+			authorized.GET("/user/posts", controller.GetUserPosts())
+			authorized.POST("/post/:postId/comment", controller.CreatePostComment())
+		}
 	}
 	r.Run(":" + port)
 }

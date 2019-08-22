@@ -23,7 +23,7 @@ func ComparePassword(receivedPassword string, currentPassword string) bool {
 	return err == nil
 }
 
-func GenerateTokenString(userId int64) (string, error) {
+func GenerateTokenString(userId uint) (string, error) {
 	secretKey := os.Getenv("JWT_SECRET_KEY")
 	token := jwt.New(jwt.GetSigningMethod("HS256"))
 	token.Claims = jwt.MapClaims{
@@ -38,7 +38,7 @@ func GenerateTokenString(userId int64) (string, error) {
 	}
 }
 
-func TokenAuthenticate(tokenString string) (bool, int64) {
+func TokenAuthenticate(tokenString string) (bool, uint) {
 	secretKey := os.Getenv("JWT_SECRET_KEY")
 	if tokenString == "" {
 		return false, 0
@@ -56,7 +56,7 @@ func TokenAuthenticate(tokenString string) (bool, int64) {
 		if claims["sub"] == nil {
 			return false, 0
 		} else {
-			return true, int64(claims["sub"].(float64))
+			return true, uint(claims["sub"].(float64))
 		}
 	} else {
 		return false, 0
